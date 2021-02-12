@@ -7,11 +7,13 @@ defmodule InfoSys.Application do
 
   def start(_type, _args) do
     children = [
+      InfoSys.Cache,
+      {Task.Supervisor, name: InfoSys.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :rest_for_one, name: InfoSys.Supervisor]
+    opts = [strategy: :one_for_one, name: InfoSys.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
