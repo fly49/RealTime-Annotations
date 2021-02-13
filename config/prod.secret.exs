@@ -39,3 +39,6 @@ config :rumbl_web, RumblWeb.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+wolfram_app_id = "3V34L7-H884EK6ELQ"
+config :info_sys, :wolfram, app_id: wolfram_app_id
