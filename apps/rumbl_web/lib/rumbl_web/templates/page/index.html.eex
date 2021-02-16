@@ -1,4 +1,13 @@
 <section class="phx-hero">
   <h1>Welcome to RealTime Annotations!</h1>
   <p>Attach a video and annotate it, with friends!</p>
+  <%= if @current_user do %>
+    <%= link "My Videos", to: Routes.video_path(@conn, :index), method: :get, class: "button" %>
+    &nbsp;
+    <%= link "Browse Videos", to: Routes.video_path(@conn, :browse), method: :get, class: "button" %>
+  <% else %>
+    <%= link "Register", to: Routes.user_path(@conn, :new), method: :get, class: "button" %>
+    &nbsp;
+    <%= link "Log in", to: Routes.session_path(@conn, :new),  method: :get, class: "button" %>
+  <% end %>
 </section>

@@ -27,4 +27,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Video", to: Routes.video_path(@conn, :new) %></span>
+<span><%= link "Add Video", to: Routes.video_path(@conn, :new) %></span>

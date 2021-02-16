@@ -62,6 +62,11 @@ defmodule RumblWeb.VideoController do
     |> redirect(to: Routes.video_path(conn, :index))
   end
 
+  def browse(conn, _params, _current_user) do
+    videos = Multimedia.list_videos()
+    render(conn, "index.html", videos: videos)
+  end
+
   def action(conn, _options) do
     args = [conn, conn.params, conn.assigns.current_user]
     apply(__MODULE__, action_name(conn), args)

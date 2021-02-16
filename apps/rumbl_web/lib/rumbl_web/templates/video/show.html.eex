@@ -1,4 +1,4 @@
-<h1>Show Video</h1>
+<h1>Video Details</h1>
 
 <ul>
 
@@ -19,5 +19,8 @@
 
 </ul>
 
+<%= link "Watch", to: Routes.watch_path(@conn, :show, @video), class: "button" %>
+&nbsp;
 <span><%= link "Edit", to: Routes.video_path(@conn, :edit, @video) %></span>
+&nbsp;
 <span><%= link "Back", to: Routes.video_path(@conn, :index) %></span>
