@@ -4,20 +4,21 @@ defmodule RumblWeb.VideoController do
   alias Rumbl.Multimedia
   alias Rumbl.Multimedia.Video
 
+  plug :fetch_video when action in [:show, :edit, :update, :delete]
   plug :load_categories when action in [:new, :create, :edit, :update]
 
-  def index(conn, _params, current_user) do
-    videos = Multimedia.list_user_videos(current_user)
+  def index(conn, _params) do
+    videos = Multimedia.list_user_videos(conn.assigns.current_user)
     render(conn, "index.html", videos: videos)
   end
 
-  def new(conn, _params, _current_user) do
+  def new(conn, _params) do
     changeset = Multimedia.change_video(%Video{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"video" => video_params}, current_user) do
-    case Multimedia.create_video(current_user, video_params) do
+  def create(conn, %{"video" => video_params}) do
+    case Multimedia.create_video(conn.assigns.current_user, video_params) do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video created successfully.")
@@ -28,51 +29,55 @@ defmodule RumblWeb.VideoController do
     end
   end
 
-  def show(conn, %{"id" => id}, current_user) do
-    video = Multimedia.get_user_video!(current_user, id)
-    render(conn, "show.html", video: video)
+  def show(conn, _) do
+    render(conn, "show.html", video: conn.assigns.video)
   end
 
-  def edit(conn, %{"id" => id}, current_user) do
-    video = Multimedia.get_user_video!(current_user, id)
+  def edit(conn, _) do
+    video = conn.assigns.video
     changeset = Multimedia.change_video(video)
     render(conn, "edit.html", video: video, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "video" => video_params}, current_user) do
-    video = Multimedia.get_user_video!(current_user, id)
-
-    case Multimedia.update_video(video, video_params) do
+  def update(conn, %{"video" => video_params}) do
+    case Multimedia.update_video(conn.assigns.video, video_params) do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video updated successfully.")
         |> redirect(to: Routes.video_path(conn, :show, video))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", video: video, changeset: changeset)
+        render(conn, "edit.html", video: conn.assigns.video, changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id}, current_user) do
-    video = Multimedia.get_user_video!(current_user, id)
-    {:ok, _video} = Multimedia.delete_video(video)
-
+  def delete(conn, _) do
+    {:ok, _video} = Multimedia.delete_video(conn.assigns.video)
     conn
     |> put_flash(:info, "Video deleted successfully.")
     |> redirect(to: Routes.video_path(conn, :index))
   end
 
-  def browse(conn, _params, _current_user) do
+  def browse(conn, _params) do
     videos = Multimedia.list_videos()
     render(conn, "index.html", videos: videos)
   end
 
-  def action(conn, _options) do
-    args = [conn, conn.params, conn.assigns.current_user]
-    apply(__MODULE__, action_name(conn), args)
-  end
-
   defp load_categories(conn, _) do
     assign(conn, :categories, Multimedia.list_alphabetical_categories())
+  end
+
+  defp fetch_video(conn, _) do
+    video_id =
+      conn.params["id"]
+      |> Video.sluglify_back()
+
+    case Multimedia.get_user_video(conn.assigns.current_user, video_id) do
+      %Video{} = video ->
+        conn |> assign(:video, video)
+
+      nil ->
+        conn |> put_flash(:error, "You can manage only your videos!") |> redirect(to: "/") |> halt()
+    end
   end
 end

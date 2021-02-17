@@ -24,6 +24,11 @@ defmodule Rumbl.Multimedia.Video do
     |> sluglify_title()
   end
 
+  def sluglify_back(str) do
+    [id | _] = Regex.run(~r/^\d+/, str)
+    String.to_integer(id)
+  end
+
   defp sluglify_title(changeset) do
     case fetch_change(changeset, :title) do
       {:ok, new_title} -> put_change(changeset, :slug, sluglify(new_title))
