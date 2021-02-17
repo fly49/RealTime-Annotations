@@ -1,13 +1,15 @@
-<section class="phx-hero">
-  <h1>Welcome to RealTime Annotations!</h1>
-  <p>Attach a video and annotate it, with friends!</p>
-  <%= if @current_user do %>
-    <%= link "My Videos", to: Routes.video_path(@conn, :index), method: :get, class: "button" %>
-    &nbsp;
-    <%= link "Browse Videos", to: Routes.video_path(@conn, :browse), method: :get, class: "button" %>
-  <% else %>
-    <%= link "Register", to: Routes.user_path(@conn, :new), method: :get, class: "button" %>
-    &nbsp;
-    <%= link "Log in", to: Routes.session_path(@conn, :new),  method: :get, class: "button" %>
-  <% end %>
-</section>
+<div class="container center">
+  <h3>Welcome to RealTime Annotations!</h3>
+  <h5>Attach a video and annotate it, with friends!</h5>
+  <div class="btn-group">
+    <%= if @current_user do %>
+      <%= link "My Videos", to: Routes.video_path(@conn, :index), method: :get, class: "waves-effect waves-light btn-large" %>
+      &nbsp;
+      <%= link "Browse Videos", to: Routes.video_path(@conn, :browse), method: :get, class: "waves-effect waves-light btn-large" %>
+    <% else %>
+      <%= link "Register", to: Routes.user_path(@conn, :new), method: :get, class: "waves-effect waves-light btn-large" %>
+      &nbsp;
+      <%= link "Log in", to: Routes.session_path(@conn, :new),  method: :get, class: "waves-effect waves-light btn-large" %>
+    <% end %>
+  </div>
+</div>

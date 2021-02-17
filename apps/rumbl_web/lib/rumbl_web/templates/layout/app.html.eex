@@ -5,29 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>RealTime Annotations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script>window.userToken = "<%= assigns[:user_token] %>"</script>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= if @current_user do %>
-              <li><%= @current_user.username %></li>
-              <li><%= link "My Videos", to: Routes.video_path(@conn, :index) %></li>
-              <li>
-                <%= link "Log Out", to: Routes.session_path(@conn, :delete, @current_user), method: :delete %>
-              </li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="<%= Routes.page_path(@conn, :index)%>" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
+    <nav>
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <%= if @current_user do %>
+            <li><%= @current_user.username %></li>
+            <li>
+              <%= link "My Videos", to: Routes.video_path(@conn, :index) %>
+            </li>
+            <li>
+              <%= link "Browse Videos", to: Routes.video_path(@conn, :browse), method: :get %>
+            </li>
+            <li>
+              <%= link "Log Out", to: Routes.session_path(@conn, :delete, @current_user), method: :delete %>
+            </li>
+          <% end %>
+        </ul>
+        <a href="<%= Routes.page_path(@conn, :index)%>" class="brand-logo left">RealTime Annotations</a>
+      </div>
+    </nav>
+
     <main class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

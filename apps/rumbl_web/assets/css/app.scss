@@ -1,5 +1,23 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
+// @import "./phoenix.css";
+.btn-group{
+  padding-top: 1rem;
+}
+.btn, .btn-large, .btn-small{
+  background-color: #ee6e73;
+}
+.btn:hover, .btn-large:hover, .btn-small:hover{
+  background-color: #ec5459;
+}
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color:  #ec5459;
+}
+nav .brand-logo{
+  padding-left: 0.5em;
+}
+.form{
+  width: 50%;
+}
 
 /* Alerts and form errors */
 .alert {

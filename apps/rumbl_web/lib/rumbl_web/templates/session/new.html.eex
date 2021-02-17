@@ -1,11 +1,13 @@
-<h1>Login</h1>
+<div class="container form">
+  <h3>Login</h3>
 
-<%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
-  <div>
-    <%= text_input f, :username, placeholder: "Username" %>
-  </div>
-  <div>
-    <%= password_input f, :password, placeholder: "Password" %>
-  </div>
-  <%= submit "Login" %>
-<% end %>
+  <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
+    <div>
+      <%= text_input f, :username, placeholder: "Username" %>
+    </div>
+    <div>
+      <%= password_input f, :password, placeholder: "Password" %>
+    </div>
+    <%= submit "Login", class: "waves-effect waves-light btn" %>
+  <% end %>
+</div>
