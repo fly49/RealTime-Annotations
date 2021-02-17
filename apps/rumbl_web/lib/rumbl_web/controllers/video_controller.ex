@@ -60,7 +60,7 @@ defmodule RumblWeb.VideoController do
 
   def browse(conn, _params) do
     videos = Multimedia.list_videos()
-    render(conn, "index.html", videos: videos)
+    render(conn, "browse.html", videos: videos)
   end
 
   defp load_categories(conn, _) do
