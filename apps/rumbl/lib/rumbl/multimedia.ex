@@ -7,7 +7,11 @@ defmodule Rumbl.Multimedia do
   alias Rumbl.Multimedia.Annotation
 
   def list_videos do
-    Repo.all(Video)
+    Repo.all(Video) |> Repo.preload(:category)
+  end
+
+  def list_videos_with_users do
+    Repo.all(Video) |> Repo.preload([:category, :user])
   end
 
   def get_video!(id), do: Repo.get!(Video, id)
@@ -37,6 +41,7 @@ defmodule Rumbl.Multimedia do
     Video
     |> user_videos_query(user)
     |> Repo.all()
+    |> Repo.preload(:category)
   end
 
   def get_user_video(%Accounts.User{} = user, id) do
@@ -57,6 +62,21 @@ defmodule Rumbl.Multimedia do
 
   defp user_videos_query(query, %Accounts.User{id: user_id}) do
     from(v in query, where: v.user_id == ^user_id)
+  end
+
+  defp videos_with_users_query(query) do
+    from v in query,
+      join: u in Accounts.User, on: v.user_id == u.id
+  end
+
+  defp videos_with_categories_query(query) do
+    from v in query,
+      join: c in Category, on: v.category_id == c.id
+  end
+
+  defp video_props_query(query) do
+    from [v, u, c] in query,
+      select: %{title: v.title, author: u.name, category: c.name}
   end
 
   def annotate_video(%Accounts.User{id: user_id}, video_id, attrs) do

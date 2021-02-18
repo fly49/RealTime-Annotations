@@ -1,30 +1,38 @@
-<h1>My Videos</h1>
+<div class="container">
+  <h3 class="center">My Videos</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for video <- @videos do %>
-    <tr>
-      <td><%= video.title %></td>
-      <td>
-        <%= link "Edit", to: Routes.video_path(@conn, :edit, video) %>
-      </td>
-      <td>
-        <%= link "Delete", to: Routes.video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
-      <td>
-        <%= link "Watch", to: Routes.watch_path(@conn, :show, video), class: "button" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+  <table class="highlight">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for video <- @videos do %>
+      <tr>
+        <td>
+          <h6><%= video.title %></h6>
+        </td>
+        <td>
+          <h6><%= video.category.name %></h6>
+        </td>
+        <td class="center">
+          <%= link "Edit", to: Routes.video_path(@conn, :edit, video) %>
+        </td>
+        <td class="center">
+          <%= link "Delete", to: Routes.video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+        <td class="center">
+          <%= link "Watch", to: Routes.watch_path(@conn, :show, video), class: "waves-effect waves-light btn" %>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
 
-<span><%= link "Add Video", to: Routes.video_path(@conn, :new) %></span>
+  <div class="table-btn"><%= link "Add Video", to: Routes.video_path(@conn, :new), class: "waves-effect waves-light btn" %></div>
+</div>

@@ -59,7 +59,7 @@ defmodule RumblWeb.VideoController do
   end
 
   def browse(conn, _params) do
-    videos = Multimedia.list_videos()
+    videos = Multimedia.list_videos_with_users()
     render(conn, "browse.html", videos: videos)
   end
 
