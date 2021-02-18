@@ -7,18 +7,22 @@ defmodule RumblWeb.Presence do
   """
   use Phoenix.Presence, otp_app: :rumbl,
                         pubsub_server: Rumbl.PubSub
+  alias RumblWeb.Gravatar
 
   def fetch(_topic, entries) do
     users =
       entries
       |> Map.keys()
       |> Rumbl.Accounts.list_users_with_ids()
-      |> Enum.into(%{}, fn user ->
-        {to_string(user.id), %{username: user.username}}
+      |> Enum.into([], fn user ->
+        gravatar = Gravatar.create(user.username)
+        %{id: to_string(user.id), username: user.username, gravatar: gravatar}
       end)
 
     for {key, %{metas: metas}} <- entries, into: %{} do
-      {key, %{metas: metas, user: users[key]}}
+      %{username: username, gravatar: gravatar} =
+        Enum.find(users, fn s -> s.id == key end)
+      {key, %{metas: metas, username: username, gravatar: gravatar}}
     end
   end
 end

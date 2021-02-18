@@ -22,7 +22,7 @@ let Video = {
     let lastSeenId = 0
     let vidChannel = socket.channel("videos:" + videoId, () => {
       return {last_seen_id: lastSeenId}
-    }) 
+    })
 
     postButton.addEventListener("click", e => {
       let payload = {body: msgInput.value, at: Player.getCurrentTime()}
@@ -55,9 +55,9 @@ let Video = {
     
     let presence = new Presence(vidChannel)
     presence.onSync(() => {
-      userList.innerHTML = presence.list((id, {user: user, metas: [first, ...rest]}) => {
+      userList.innerHTML = presence.list((id, {username: username, gravatar: gravatar, metas: [first, ...rest]}) => {
         // let count = rest.length + 1 // amount of connected devices
-        return `<li class="user-status">${user.username}</li>`
+        return `<li class="user-status">${gravatar}<strong>${username}</strong></li>`
       }).join("")
     }) 
   },

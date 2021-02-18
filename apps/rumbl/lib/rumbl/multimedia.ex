@@ -64,20 +64,20 @@ defmodule Rumbl.Multimedia do
     from(v in query, where: v.user_id == ^user_id)
   end
 
-  defp videos_with_users_query(query) do
-    from v in query,
-      join: u in Accounts.User, on: v.user_id == u.id
-  end
+  # defp videos_with_users_query(query) do
+  #   from v in query,
+  #     join: u in Accounts.User, on: v.user_id == u.id
+  # end
 
-  defp videos_with_categories_query(query) do
-    from v in query,
-      join: c in Category, on: v.category_id == c.id
-  end
+  # defp videos_with_categories_query(query) do
+  #   from v in query,
+  #     join: c in Category, on: v.category_id == c.id
+  # end
 
-  defp video_props_query(query) do
-    from [v, u, c] in query,
-      select: %{title: v.title, author: u.name, category: c.name}
-  end
+  # defp video_props_query(query) do
+  #   from [v, u, c] in query,
+  #     select: %{title: v.title, author: u.name, category: c.name}
+  # end
 
   def annotate_video(%Accounts.User{id: user_id}, video_id, attrs) do
     %Annotation{video_id: video_id, user_id: user_id}
