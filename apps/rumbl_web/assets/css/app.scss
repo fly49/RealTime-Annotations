@@ -21,6 +21,25 @@ nav .brand-logo{
 .table-btn{
   margin-top: 1em;
 }
+.video-header{
+  margin-bottom: 2rem;
+}
+.annotations-header{
+  margin-top: 0;
+}
+a {
+  color: #26a69a;
+  font-size: 18px;
+}
+#msg-input{
+  font-size: 18px;
+}
+#user-list li{
+  display: inline;
+}
+.user-status{
+  margin: 0.5em;
+}
 
 /* Alerts and form errors */
 .alert {

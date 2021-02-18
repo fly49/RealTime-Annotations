@@ -1,26 +1,27 @@
 <div class="row">
-  <div class="column column-60">
-    <h1><%= @video.title %></h1>
-    <%= content_tag :div, id: "video",
-        data: [id: @video.id, player_id: player_id(@video)] do %>
-    <% end %>
+  <h3 class="center video-header"><%= @video.title %></h3>
+  <div class="col s9">
+    <div class="video-container">
+      <%= content_tag :div, id: "video",
+          data: [id: @video.id, player_id: player_id(@video)] do %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="column annotations">
-    <h3>Annotations</h3>
+  <div class="col s3">
+    <h5 class="annotations-header center">Annotations</h5>
     <div id="msg-container"></div>
-    <div>
-      <textarea id="msg-input" rows="3" placeholder="Comment..."></textarea>
-      <button id="msg-submit" class="button column" type="submit">
+    <div class="input-field">
+      <textarea id="msg-input" rows="3" placeholder="Comment..." class="materialize-textarea"></textarea>
+      <button id="msg-submit" type="submit", class="waves-effect waves-light btn" >
         Post
       </button>
     </div>
   </div>
 </div>
-<hr>
 <div class="row">
   <div class="column">
-    <h3>Users</h3>
+    <h5>Waitching now:</h5>
     <ul id="user-list"></ul>
   </div>
 </div>
