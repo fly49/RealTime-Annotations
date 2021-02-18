@@ -18,3 +18,8 @@ import socket from "./socket"
 import Video from "./video"
 
 Video.init(socket, document.getElementById("video"))
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, "");
+});
