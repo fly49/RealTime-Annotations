@@ -6,11 +6,6 @@ defmodule RumblWeb.UserController do
 
   plug :authenticate_user when action in [:index, :show]
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    render(conn, "index.html", users: users)
-  end
-
   def new(conn, _params) do
     changeset = Accounts.change_registration(%User{}, %{})
     render(conn, "new.html", changeset: changeset)
@@ -28,10 +23,4 @@ defmodule RumblWeb.UserController do
         render(conn, "new.html", changeset: changeset)
     end
   end
-
-  def show(conn, %{"id" => id}) do
-    user = Accounts.get_user(id)
-    render(conn, "show.html", user: user)
-  end
-
 end

@@ -1,5 +1,4 @@
 defmodule RumblWeb.Gravatar do
-  import Phoenix.HTML.Tag, only: [img_tag: 2]
   def create(str, size \\ 25) do
     hash = str
     |> String.trim()
