@@ -51,7 +51,7 @@ defmodule Rumbl.Multimedia do
   end
 
   def create_category!(name) do
-    Repo.insert!(%Category{name: name}, on_conflict: :nothing)
+    Repo.insert!(%Category{name: name}, on_conflict: :replace_all, conflict_target: :name)
   end
 
   def list_alphabetical_categories do

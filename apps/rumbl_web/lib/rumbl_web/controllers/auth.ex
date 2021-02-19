@@ -2,6 +2,7 @@ defmodule RumblWeb.Auth do
   import Plug.Conn
   import Phoenix.Controller
   alias RumblWeb.Router.Helpers, as: Routes
+  alias RumblWeb.Gravatar
 
   def init(opts), do: opts
 
@@ -30,6 +31,7 @@ defmodule RumblWeb.Auth do
     token = Phoenix.Token.sign(conn, "user socket", user.id)
     conn
     |> assign(:current_user, user)
+    |> assign(:user_gravatar, Gravatar.create(user.username, 30))
     |> assign(:user_token, token)
   end
 

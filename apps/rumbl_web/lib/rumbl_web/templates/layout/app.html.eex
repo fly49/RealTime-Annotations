@@ -16,7 +16,9 @@
       <div class="nav-wrapper">
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <%= if @current_user do %>
-            <li><%= @current_user.username %></li>
+            <li>
+              <a href="/"><img class="avatar" src="<%= @user_gravatar %>">&nbsp;<%= @current_user.username %></a>
+            </li>
             <li>
               <%= link "My Videos", to: Routes.video_path(@conn, :index) %>
             </li>

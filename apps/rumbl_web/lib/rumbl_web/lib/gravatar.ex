@@ -7,7 +7,6 @@ defmodule RumblWeb.Gravatar do
     |> Base.encode16(case: :lower)
 
 
-    url = "https://www.gravatar.com/avatar/#{hash}?s=#{size}&d=retro"
-    "<img src=\"#{url}\">"
+    "https://www.gravatar.com/avatar/#{hash}?s=#{size}&d=retro"
   end
 end

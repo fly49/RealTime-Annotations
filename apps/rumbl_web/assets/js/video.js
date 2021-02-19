@@ -57,7 +57,7 @@ let Video = {
     presence.onSync(() => {
       userList.innerHTML = presence.list((id, {username: username, gravatar: gravatar, metas: [first, ...rest]}) => {
         // let count = rest.length + 1 // amount of connected devices
-        return `<li class="user-status">${gravatar}<strong>${username}</strong></li>`
+        return `<li class="user-status"><img class="avatar" src="${gravatar}">&nbsp;<strong>${username}</strong></li>`
       }).join("")
     }) 
   },
