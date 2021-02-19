@@ -54,6 +54,11 @@ defmodule Rumbl.Multimedia do
     Repo.insert!(%Category{name: name}, on_conflict: :replace_all, conflict_target: :name)
   end
 
+  def get_category_by_name(name) do
+    from(c in Category, where: c.name == ^name)
+    |> Repo.one()
+  end
+
   def list_alphabetical_categories do
     Category
     |> Category.alphabetical()
